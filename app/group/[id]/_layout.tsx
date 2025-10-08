@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Tabs, useLocalSearchParams } from 'expo-router';
+import { router, Tabs, useLocalSearchParams } from 'expo-router';
+import { TouchableOpacity } from 'react-native';
 
 export default function GroupTabLayout() {
   const { id } = useLocalSearchParams();
@@ -8,7 +9,15 @@ export default function GroupTabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: '#007AFF',
-        headerShown: false,
+        headerShown: true,
+        headerLeft: () => (
+          <TouchableOpacity 
+            onPress={() => router.back()}
+            style={{ marginLeft: 15 }}
+          >
+            <Ionicons name="arrow-back" size={24} color="#007AFF" />
+          </TouchableOpacity>
+        ),
       }}>
       <Tabs.Screen
         name="index"
