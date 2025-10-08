@@ -6,13 +6,13 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: '#007AFF',
-        headerShown: false,
+        headerShown: true,
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ color, focused }: { color: string; focused: boolean }) => (
             <Ionicons name={focused ? 'home' : 'home-outline'} color={color} size={24} />
           ),
         }}
@@ -21,7 +21,7 @@ export default function TabLayout() {
         name="groups"
         options={{
           title: 'Groups',
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ color, focused }: { color: string; focused: boolean }) => (
             <Ionicons name={focused ? 'people' : 'people-outline'} color={color} size={24} />
           ),
         }}
@@ -30,7 +30,7 @@ export default function TabLayout() {
         name="account"
         options={{
           title: 'Account',
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ color, focused }: { color: string; focused: boolean }) => (
             <Ionicons name={focused ? 'person' : 'person-outline'} color={color} size={24} />
           ),
         }}
