@@ -1,12 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from 'expo-router';
 import React, { useState } from "react";
 import {
-    FlatList,
-    Modal,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  FlatList,
+  Modal,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 interface Group {
@@ -38,6 +39,7 @@ const mockGroups: Group[] = [
 ];
 
 export default function GroupsScreen() {
+  const router = useRouter();
   const [groups, setGroups] = useState(mockGroups);
   const [modalVisible, setModalVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -64,22 +66,26 @@ export default function GroupsScreen() {
     setModalVisible(false);
   };
 
-  const renderGroupItem = ({ item }: { item: Group }) => (
-    <View className="bg-white rounded-xl border border-gray-200 mb-3 p-4">
-      <View className="flex-row justify-between items-start">
-        <View className="flex-1">
-          <Text className="text-base font-semibold text-gray-800 mb-1">{item.name}</Text>
-          <Text className="text-sm text-gray-500">{item.room}</Text>
+const renderGroupItem = ({ item }: { item: Group }) => (
+  <TouchableOpacity 
+    className="bg-white rounded-xl border border-gray-200 mb-3 p-4"
+    onPress={() => router.push({ pathname: '/group/[id]', params: { id: item.id } })}
+  >
+    <View className="flex-row justify-between items-start">
+      <View className="flex-1">
+        <Text className="text-base font-semibold text-gray-800 mb-1">{item.name}</Text>
+        <Text className="text-sm text-gray-500">{item.room}</Text>
+      </View>
+      <View className="items-end">
+        <View className="flex-row items-center gap-1">
+          <Ionicons name="people" size={16} color="#666" />
+          <Text className="text-sm text-gray-500 font-medium">{item.studentCount}</Text>
         </View>
-        <View className="items-end">
-          <View className="flex-row items-center gap-1">
-            <Ionicons name="people" size={16} color="#666" />
-            <Text className="text-sm text-gray-500 font-medium">{item.studentCount}</Text>
-          </View>
-        </View>
+        <Ionicons name="chevron-forward" size={16} color="#666" className="mt-1" />
       </View>
     </View>
-  );
+  </TouchableOpacity>
+);
 
   return (
     <View className="flex-1 bg-gray-100 p-4">
